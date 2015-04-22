@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class MainClass {
+public class LineMatchFinder {
 
 	static Set<String> firstFileStrings = new HashSet<String>();
 	static Set<String> secondFileStrings = new HashSet<String>();
