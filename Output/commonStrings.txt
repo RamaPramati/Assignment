@@ -23,14 +23,14 @@ Chandan Kumar
 Ashish Joseph
 Venkatesh Ramkumar
 Santhosh Kumar Avva
-Abhinav Katiyar
 Purna boyapati
+Abhinav Katiyar
 Shiva Kumar Konduru
 Nishanth Veereddy
 Thirumalesh Yenagandula
 Kishore Madina
-Sravan Bonagiri
 Subba Rao V
+Sravan Bonagiri
 Ankit Mittal
 Jagadish kantubugata
 Jyothi Narasipuram
@@ -53,8 +53,8 @@ Deepali Karlekar
 gaurav tamhankar
 Venkatesh S
 Mallikarjun sirige
-Anief Shaik
 Sunil Gupta
+Anief Shaik
 Chandresh Prakash
 Sanjay Pavan Chaluvadi
 Vinay Gadegela
@@ -78,13 +78,13 @@ Vinod Kakarla
 vikas reddy voladri
 naveen kumar
 Suresh Salloju
-Anand Kumar Amaravadhi
 Mohit Suhane
+Anand Kumar Amaravadhi
 Satish Salguti
 Arvind Surana
 sawant tandle
-Nishant Saxena
 Amit Kumar
+Nishant Saxena
 Gowthami Vasabhaktula
 Gunjan Dixit
 Sudhamshu Ailineni
@@ -93,8 +93,8 @@ Bharat Raj Arutla
 Mallikharjuna Varma Nadimpalli
 Apurba Nath
 Raju Revuri
-sandeep pradhan
 Sanjeev Senapati
+sandeep pradhan
 Sonal Dubey
 Roshini Chinta
 Lakshmi Kalidindi

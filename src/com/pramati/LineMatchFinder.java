@@ -22,11 +22,6 @@ public class LineMatchFinder {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public static void main(String[] args) {
-		try {
-			MyLogger.setup();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		readDataFromFiles(firstFileStrings, "Input/firstFile.txt");
 		readDataFromFiles(secondFileStrings, "Input/secondFile.txt");
 
