@@ -17,7 +17,7 @@ public class LineMatchFinder {
 
 	static Set<String> firstFileStrings = new HashSet<String>();
 	static Set<String> secondFileStrings = new HashSet<String>();
-	static Set<String> commonStrings = new HashSet<String>();
+	static Set<String> outputStrings = new HashSet<String>();
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -27,35 +27,30 @@ public class LineMatchFinder {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		readDataFromFiles();
+		readDataFromFiles(firstFileStrings, "Input/firstFile.txt");
+		readDataFromFiles(secondFileStrings, "Input/secondFile.txt");
 
 		CommonDataFinder matchFound=new CommonDataFinder(firstFileStrings, secondFileStrings);
-		commonStrings = matchFound.findCommonData();
+		outputStrings = matchFound.findCommonData();
 
-		writeDataToFile();
+		writeDataToFile(outputStrings, "Output/commonStrings.txt");
 	}
 
-	public static void readDataFromFiles(){
+	public static void readDataFromFiles(Set<String> fileStrings, String fileName){
 	    
 		LOGGER.setLevel(Level.INFO);
 		   
-		BufferedReader firstFileBufferedReader = null;
-		BufferedReader secondFileBufferedReader = null;		
+		BufferedReader fileBufferedReader = null;
 		String CurrentLine;
 
 		try	{
 			
 			LOGGER.info("Reading files.....");
 
-			firstFileBufferedReader = new BufferedReader(new FileReader("Input/firstFile.txt"));
-			secondFileBufferedReader = new BufferedReader(new FileReader("Input/secondFile.txt"));
+			fileBufferedReader = new BufferedReader(new FileReader(fileName));
 
-			while ((CurrentLine = firstFileBufferedReader.readLine()) != null) {
-				firstFileStrings.add(CurrentLine);
-			}
-
-			while ((CurrentLine = secondFileBufferedReader.readLine()) != null) {
-				secondFileStrings.add(CurrentLine);
+			while ((CurrentLine = fileBufferedReader.readLine()) != null) {
+				fileStrings.add(CurrentLine);
 			}
 
 		} catch (FileNotFoundException e) {
@@ -66,8 +61,7 @@ public class LineMatchFinder {
 			e.printStackTrace();
 		}finally {
 			try {
-				if (firstFileBufferedReader != null)firstFileBufferedReader.close();
-				if (secondFileBufferedReader != null)secondFileBufferedReader.close();
+				if (fileBufferedReader != null)fileBufferedReader.close();
 			} catch (IOException ex) {
 				LOGGER.severe("Got 2 nd level IOException exception in readDataFromFiles method");
 				ex.printStackTrace();
@@ -75,15 +69,15 @@ public class LineMatchFinder {
 		}
 	}
 
-	public static void writeDataToFile(){
+	public static void writeDataToFile(Set<String> outputStrings, String fileName){
       
 		BufferedWriter outputFileBufferedWriter =  null;
-		Iterator<String> commonStringsIterator=commonStrings.iterator();		
+		Iterator<String> commonStringsIterator=outputStrings.iterator();		
 
 		try {
 		    LOGGER.info("Writing to file.....");
 
-			outputFileBufferedWriter =  new BufferedWriter(new FileWriter(new File("Output/commonStrings.txt")));
+			outputFileBufferedWriter =  new BufferedWriter(new FileWriter(new File(fileName)));
 
 			while (commonStringsIterator.hasNext()) {
 				outputFileBufferedWriter.write(commonStringsIterator.next().toString()+"\n");

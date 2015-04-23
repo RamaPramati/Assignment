@@ -10,20 +10,20 @@ public class CommonDataFinder {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	Set<String> firstFileStrings = new HashSet<String>();
-	Set<String> secondFileStrings = new HashSet<String>();
+	Set<String> firstFileStrings;
+	Set<String> secondFileStrings;
 	
 	public CommonDataFinder(Set<String> firstFileStrings, Set<String> secondFileStrings){
-		this.firstFileStrings = firstFileStrings;
-		this.secondFileStrings = secondFileStrings;
+		this.firstFileStrings = new HashSet<String>(firstFileStrings);
+		this.secondFileStrings = new HashSet<String>(secondFileStrings);
 	}
 
 	public Set<String> findCommonData() { 
 	    LOGGER.setLevel(Level.INFO);
 	    LOGGER.info("comparing data.....");
 
+	    Set<String> tempStrings = new HashSet<String>();
 		Set<String> commonStrings = new HashSet<String>();
-		Set<String> tempStrings = new HashSet<String>();
 
 		Iterator<String> firstFileStringsIterator = firstFileStrings.iterator();
 		Iterator<String> secondFileStringsIterator = secondFileStrings.iterator();
