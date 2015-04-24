@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 
 public class LineMatchFinder {
 
-	static Set<String> firstFileStrings = new HashSet<String>();
-	static Set<String> secondFileStrings = new HashSet<String>();
-	static Set<String> outputStrings = new HashSet<String>();
+	private static Set<String> firstFileStrings = new HashSet<String>();
+	private static Set<String> secondFileStrings = new HashSet<String>();
+	private static Set<String> outputStrings = new HashSet<String>();
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -26,7 +26,7 @@ public class LineMatchFinder {
 		readDataFromFiles(secondFileStrings, "Input/secondFile.txt");
 
 		CommonDataFinder matchFound=new CommonDataFinder(firstFileStrings, secondFileStrings);
-		outputStrings = matchFound.findCommonData();
+		outputStrings = matchFound.findCommonData(MatchType.exactCaseInSensitiveMatch);
 
 		writeDataToFile(outputStrings, "Output/commonStrings.txt");
 	}
