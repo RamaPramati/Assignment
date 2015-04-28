@@ -22,24 +22,26 @@ public class LineMatchFinder {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public static void main(String[] args) {
-		readDataFromFiles(firstFileStrings, "Input/firstFile.txt");
-		readDataFromFiles(secondFileStrings, "Input/secondFile.txt");
+		LineMatchFinder matchFinder = new LineMatchFinder();
+		
+		matchFinder.readDataFromFiles(firstFileStrings, "Input/firstFile.txt");
+		matchFinder.readDataFromFiles(secondFileStrings, "Input/secondFile.txt");
 
 		CommonDataFinder matchFound=new CommonDataFinder(firstFileStrings, secondFileStrings);
 		outputStrings = matchFound.findCommonData(MatchType.exactCaseInSensitiveMatch);
 
-		writeDataToFile(outputStrings, "Output/commonStrings.txt");
+		matchFinder.writeDataToFile(outputStrings, "Output/commonStrings.txt");
 	}
 
-	public static void readDataFromFiles(Set<String> fileStrings, String fileName){
-	    
+	public void readDataFromFiles(Set<String> fileStrings, String fileName){
+
 		LOGGER.setLevel(Level.INFO);
-		   
+
 		BufferedReader fileBufferedReader = null;
 		String CurrentLine;
 
 		try	{
-			
+
 			LOGGER.info("Reading files.....");
 
 			fileBufferedReader = new BufferedReader(new FileReader(fileName));
@@ -64,7 +66,7 @@ public class LineMatchFinder {
 		}
 	}
 
-	public static void writeDataToFile(Set<String> outputStrings, String fileName){
+	public void writeDataToFile(Set<String> outputStrings, String fileName){
       
 		BufferedWriter outputFileBufferedWriter =  null;
 		Iterator<String> commonStringsIterator=outputStrings.iterator();		

@@ -8,8 +8,7 @@ import java.util.logging.Logger;
 
 public class CommonDataFinder {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
+	private static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private Set<String> firstFileStrings;
 	private Set<String> secondFileStrings;
 
