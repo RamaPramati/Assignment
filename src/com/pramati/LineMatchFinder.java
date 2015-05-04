@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LineMatchFinder {
@@ -18,27 +17,24 @@ public class LineMatchFinder {
 	private static Set<String> firstFileStrings = new HashSet<String>();
 	private static Set<String> secondFileStrings = new HashSet<String>();
 	private static Set<String> outputStrings = new HashSet<String>();
-	
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final Logger LOGGER = Logger.getLogger(LineMatchFinder.class.getName());
 	
 	public static void main(String[] args) {
-		LineMatchFinder matchFinder = new LineMatchFinder();
+		final LineMatchFinder matchFinder = new LineMatchFinder();
 		
 		matchFinder.readDataFromFiles(firstFileStrings, "Input/firstFile.txt");
 		matchFinder.readDataFromFiles(secondFileStrings, "Input/secondFile.txt");
 
-		CommonDataFinder matchFound=new CommonDataFinder(firstFileStrings, secondFileStrings);
-		outputStrings = matchFound.findCommonData(MatchType.exactCaseInSensitiveMatch);
+		CommonDataFinder matchFound=new CommonDataFinder();
+		outputStrings = matchFound.findCommonData(MatchType.exactCaseInSensitiveMatch,firstFileStrings, secondFileStrings);
 
 		matchFinder.writeDataToFile(outputStrings, "Output/commonStrings.txt");
 	}
 
 	public void readDataFromFiles(Set<String> fileStrings, String fileName){
 
-		LOGGER.setLevel(Level.INFO);
-
 		BufferedReader fileBufferedReader = null;
-		String CurrentLine;
+		String currentLine;
 
 		try	{
 
@@ -46,22 +42,20 @@ public class LineMatchFinder {
 
 			fileBufferedReader = new BufferedReader(new FileReader(fileName));
 
-			while ((CurrentLine = fileBufferedReader.readLine()) != null) {
-				fileStrings.add(CurrentLine);
+			while (fileBufferedReader.readLine() != null) {
+				currentLine = fileBufferedReader.readLine();
+				fileStrings.add(currentLine);
 			}
 
 		} catch (FileNotFoundException e) {
 			LOGGER.severe("Got FileNotFoundException exception in readDataFromFiles method");
-			e.printStackTrace();
 		} catch (IOException e) {
 			LOGGER.severe("Got 1st level IOException exception in readDataFromFiles method");
-			e.printStackTrace();
 		}finally {
 			try {
 				if (fileBufferedReader != null)fileBufferedReader.close();
 			} catch (IOException ex) {
 				LOGGER.severe("Got 2 nd level IOException exception in readDataFromFiles method");
-				ex.printStackTrace();
 			}
 		}
 	}
@@ -81,13 +75,11 @@ public class LineMatchFinder {
 			}
 		} catch (IOException e) {
 			LOGGER.severe("Got 1st level IOException exception in readDataFromFiles method");
-			e.printStackTrace();
 		}finally {
 			try {
 				if (outputFileBufferedWriter != null)outputFileBufferedWriter.close();
 			} catch (IOException ex) {
 				LOGGER.severe("Got 2 nd level IOException exception in readDataFromFiles method");
-				ex.printStackTrace();
 			}
 		}
 	}

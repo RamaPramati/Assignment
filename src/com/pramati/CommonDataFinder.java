@@ -3,61 +3,53 @@ package com.pramati;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommonDataFinder {
 
-	private static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private Set<String> firstFileStrings;
-	private Set<String> secondFileStrings;
+	private static final Logger LOGGER = Logger.getLogger(CommonDataFinder.class.getName());
 
-	public CommonDataFinder(Set<String> firstFileStrings, Set<String> secondFileStrings){
-		this.firstFileStrings = new HashSet<String>(firstFileStrings);
-		this.secondFileStrings = new HashSet<String>(secondFileStrings);
-	}
+	public Set<String> findCommonData(MatchType matchType, Set<String> firstFileStrings, Set<String> secondFileStrings) { 
 
-	public Set<String> findCommonData(MatchType matchType) { 
-
-		LOGGER.setLevel(Level.INFO);
 		LOGGER.info("comparing data.....");
 		Set<String> commonStrings = new HashSet<String>();
 		Set<String> tempStrings = new HashSet<String>();
 		Iterator<String> firstFileStringsIterator = firstFileStrings.iterator();
 		Iterator<String> secondFileStringsIterator = secondFileStrings.iterator();
+		String tempString = null;
 
-		switch(matchType) {
-		
-		case firstAndLastNameMatch: 
-			
+		if(matchType == MatchType.firstAndLastNameMatch) {
+
+			StringBuilder constructedString=new StringBuilder();
+
 			while (firstFileStringsIterator.hasNext()) {
-				String tempString= firstFileStringsIterator.next().toString();
-				String[] tempStringForFirstFileStrings=tempString.toLowerCase().split(" ");
-				StringBuilder constructedStringForFirstFileStrings=new StringBuilder().append(tempStringForFirstFileStrings[0]).append(tempStringForFirstFileStrings[tempStringForFirstFileStrings.length-1]);
-				tempStrings.add(constructedStringForFirstFileStrings.toString());
+				tempString= firstFileStringsIterator.next().toString().toLowerCase();
+				String[] tempStringForFirstFileStrings=tempString.split(" ");
+				constructedString = constructedString.append(tempStringForFirstFileStrings[0]).append(tempStringForFirstFileStrings[tempStringForFirstFileStrings.length-1]);
+				tempStrings.add(constructedString.toString());
 			}
 
 			while (secondFileStringsIterator.hasNext()) {
-				String tempString= secondFileStringsIterator.next().toString();
-				String[] tempStringForSecondFileStrings=tempString.toLowerCase().split(" ");
-				StringBuilder constructedStringForSecondFileStrings=new StringBuilder().append(tempStringForSecondFileStrings[0]).append(tempStringForSecondFileStrings[tempStringForSecondFileStrings.length-1]);
-				if((tempStrings.contains(constructedStringForSecondFileStrings.toString())))
+				tempString= secondFileStringsIterator.next().toString().toLowerCase();
+				String[] tempStringForSecondFileStrings=tempString.split(" ");
+				constructedString= constructedString.append(tempStringForSecondFileStrings[0]).append(tempStringForSecondFileStrings[tempStringForSecondFileStrings.length-1]);
+				if(tempStrings.contains(constructedString.toString()))
 					commonStrings.add(tempString);
 			}
 
-		case exactCaseInSensitiveMatch:
-
-			while (firstFileStringsIterator.hasNext()) {
-				String tempString= firstFileStringsIterator.next().toString();
-				tempStrings.add(tempString.toLowerCase());
-			}
-
-			while (secondFileStringsIterator.hasNext()) {
-				String tempString= secondFileStringsIterator.next().toString();
-				if((tempStrings.contains(tempString.toLowerCase())))
-					commonStrings.add(tempString);
-			}    	
 		}
+
+		while (firstFileStringsIterator.hasNext()) {
+			tempString= firstFileStringsIterator.next().toString().toLowerCase();
+			tempStrings.add(tempString);
+		}
+
+		while (secondFileStringsIterator.hasNext()) {
+			tempString= secondFileStringsIterator.next().toString().toLowerCase();
+			if(tempStrings.contains(tempString))
+				commonStrings.add(tempString);
+		}    	
+
 		return commonStrings; 
 	}
 }
